@@ -86,17 +86,20 @@ export default {
         };
       });
     },
-    generateYearsMatrix(date) {
-      return Array.from({ length: 10 }, (elColumn, columnIndex) => {
+    generateYearsMatrix(date, minDate, maxDate) {
+      const rangeOfYears = (start, end) => Array(end - start + 1)
+          .fill(start)
+          .map((year, index) => year + index)
+      return rangeOfYears(minDate, maxDate).map((year) => {
         const dateTime = DateTime.local(
-          (date.year - (date.year % 10)) + columnIndex, date.month, 1,
+          year, date.month, 1,
           date.hour, date.minute, date.second,
         );
 
         return {
           year: dateTime,
-          yearNumber: dateTime.year,
-        };
+          yearNumber: year
+        }
       });
     },
     getPreviousMonth(date) {

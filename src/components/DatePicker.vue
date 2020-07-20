@@ -36,23 +36,6 @@
         </slot>
       </button>
       <button
-        v-else-if="section === 'years'"
-        type="button"
-        class="date-picker__prev_decade"
-        :class="{
-          'date-picker__prev_decade--disabled': previousDecade.disabled,
-        }"
-        @click="setPreviousDecade(previousDecade.value)"
-        :disabled="previousDecade.disabled"
-      >
-        <slot
-          name="decades-prev"
-          :item="previousDecade"
-        >
-          &lt;
-        </slot>
-      </button>
-      <button
         v-if="section !== 'years'"
         type="button"
         @click="section = 'months'"
@@ -62,7 +45,7 @@
       </button>
       <button
         type="button"
-        @click="section = 'years'"
+        @click="setYearSection"
         class="date-picker__year-header"
       >
         {{ displayYear }}
@@ -97,23 +80,6 @@
         <slot
           name="years-next"
           :item="nextYear"
-        >
-          &gt;
-        </slot>
-      </button>
-      <button
-        v-else-if="section === 'years'"
-        type="button"
-        class="date-picker__next_decade"
-        :class="{
-          'date-picker__next_decade--disabled': nextDecade.disabled,
-        }"
-        @click="setNextDecade(nextDecade.value)"
-        :disabled="nextDecade.disabled"
-      >
-        <slot
-          name="decades-next"
-          :item="nextDecade"
         >
           &gt;
         </slot>
@@ -197,6 +163,7 @@
           :class="{
             'date-picker__year-button--selected': info.selected,
             'date-picker__year-button--disabled': info.disabled,
+            'date-picker__year-button--display': info.yearNumber==displayYear,
           }"
           :disabled="info.disabled"
         >
@@ -385,11 +352,6 @@ export default {
       this.monthsMatrix = this.generateMonthsMatrix(this.displayDate, this.locale);
       this.$emit('change-year', this.displayDate);
     },
-    setPreviousDecade(previousDecade) {
-      this.displayDate = previousDecade;
-      this.yearsMatrix = this.generateYearsMatrix(this.displayDate);
-      this.$emit('change-decade', this.displayDate);
-    },
     setNextMonth(nextMonth) {
       this.displayDate = nextMonth;
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
@@ -400,11 +362,11 @@ export default {
       this.monthsMatrix = this.generateMonthsMatrix(this.displayDate, this.locale);
       this.$emit('change-year', this.displayDate);
     },
-    setNextDecade(nextDecade) {
-      this.displayDate = nextDecade;
-      this.yearsMatrix = this.generateYearsMatrix(this.displayDate);
-      this.$emit('change-decade', this.displayDate);
-    },
+    setYearSection() {
+      this.section = 'years';
+      var element = this.$el.querySelector(".date-picker__year-button--display");
+      this.$nextTick(() => element.scrollIntoView());
+    }
   },
   watch: {
     value: {
@@ -412,7 +374,7 @@ export default {
         this.displayDate = value;
         this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
         this.monthsMatrix = this.generateMonthsMatrix(this.displayDate, this.locale);
-        this.yearsMatrix = this.generateYearsMatrix(this.displayDate);
+        this.yearsMatrix = this.generateYearsMatrix(this.displayDate, this.minDate.year, this.maxDate.year);
       },
       immediate: true,
       deep: true,
@@ -493,5 +455,9 @@ export default {
 .date-picker__year-button, .date-picker__month-button {
   width: 100%;
   margin-bottom: 3px;
+}
+.date-picker__years {
+  max-height: 250px;
+  overflow-y: scroll;
 }
 </style>
