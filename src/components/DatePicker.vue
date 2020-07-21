@@ -460,4 +460,7 @@ export default {
   max-height: 250px;
   overflow-y: scroll;
 }
+.date-picker__years::-webkit-scrollbar {
+  display: none;
+}
 </style>
