@@ -364,8 +364,8 @@ export default {
     },
     setYearSection() {
       this.section = 'years';
-      var element = this.$el.querySelector(".date-picker__year-button--display");
-      this.$nextTick(() => element.scrollIntoView());
+      const element = this.$el.querySelector(".date-picker__year-button--display");
+      if (element != null) this.$nextTick(() => element.scrollIntoView());
     }
   },
   watch: {
