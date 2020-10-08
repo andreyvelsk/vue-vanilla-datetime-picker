@@ -88,8 +88,8 @@ export default {
     },
     generateYearsMatrix(date, minDate, maxDate) {
       const rangeOfYears = (start, end) => Array(end - start + 1)
-          .fill(start)
-          .map((year, index) => year + index)
+        .fill(start)
+        .map((year, index) => year + index);
       return rangeOfYears(minDate, maxDate).map((year) => {
         const dateTime = DateTime.local(
           year, date.month, 1,
@@ -98,8 +98,8 @@ export default {
 
         return {
           year: dateTime,
-          yearNumber: year
-        }
+          yearNumber: year,
+        };
       });
     },
     getPreviousMonth(date) {

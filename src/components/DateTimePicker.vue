@@ -255,14 +255,12 @@ export default {
       required: true,
     },
     minDate: {
-      default: () => {
-        return new Date(new Date().setFullYear(new Date().getFullYear() - 100));
-      },
+      default: () => new Date(new Date().setFullYear(new Date().getFullYear() - 100))
+      ,
     },
     maxDate: {
-      default: () => {
-        return new Date(new Date().setFullYear(new Date().getFullYear() + 50));
-      },
+      default: () => new Date(new Date().setFullYear(new Date().getFullYear() + 50))
+      ,
     },
     initialViewDate: {
       default: () => null,

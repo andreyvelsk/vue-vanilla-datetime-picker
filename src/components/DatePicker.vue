@@ -339,7 +339,8 @@ export default {
     selectYear(year) {
       this.displayDate = year;
       this.monthsMatrix = this.generateMonthsMatrix(this.displayDate, this.locale);
-      this.section = 'months';
+      this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
+      this.section = 'days';
       this.$emit('change-year', this.displayDate);
     },
     setPreviousMonth(previousMonth) {
@@ -364,9 +365,9 @@ export default {
     },
     setYearSection() {
       this.section = 'years';
-      const element = this.$el.querySelector(".date-picker__year-button--display");
+      const element = this.$el.querySelector('.date-picker__year-button--display');
       if (element != null) this.$nextTick(() => element.scrollIntoView());
-    }
+    },
   },
   watch: {
     value: {
