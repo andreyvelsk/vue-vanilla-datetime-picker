@@ -11605,8 +11605,8 @@ var directive = {
   instances: instances
 };
 /* harmony default export */ var click_outside = (directive);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5be094d7-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DatePicker.vue?vue&type=template&id=236673dc&
-var DatePickervue_type_template_id_236673dc_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"date-picker"},[_c('div',{staticClass:"date-picker__header"},[(_vm.section === 'days')?_c('button',{staticClass:"date-picker__prev_month",class:{
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5be094d7-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DatePicker.vue?vue&type=template&id=6b1acdee&
+var DatePickervue_type_template_id_6b1acdee_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"date-picker"},[_c('div',{staticClass:"date-picker__header"},[(_vm.section === 'days')?_c('button',{staticClass:"date-picker__prev_month",class:{
         'date-picker__prev_month--disabled': _vm.previousMonth.disabled,
       },attrs:{"type":"button","disabled":_vm.previousMonth.disabled},on:{"click":function($event){return _vm.setPreviousMonth(_vm.previousMonth.value)}}},[_vm._t("months-prev",[_vm._v("\n        <\n      ")],{"item":_vm.previousMonth})],2):(_vm.section === 'months')?_c('button',{staticClass:"date-picker__prev_year",class:{
         'date-picker__prev_year--disabled': _vm.previousYear.disabled,
@@ -11630,10 +11630,10 @@ var DatePickervue_type_template_id_236673dc_render = function () {var _vm=this;v
           'date-picker__year-button--disabled': info.disabled,
           'date-picker__year-button--display': info.yearNumber==_vm.displayYear,
         },attrs:{"type":"button","disabled":info.disabled},on:{"click":function($event){return _vm.selectYear(info.year)}}},[_vm._v("\n        "+_vm._s(info.yearNumber)+"\n      ")])])}),0)])}
-var DatePickervue_type_template_id_236673dc_staticRenderFns = []
+var DatePickervue_type_template_id_6b1acdee_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/DatePicker.vue?vue&type=template&id=236673dc&
+// CONCATENATED MODULE: ./src/components/DatePicker.vue?vue&type=template&id=6b1acdee&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.object.get-own-property-descriptors.js
 var es7_object_get_own_property_descriptors = __webpack_require__("8e6e");
@@ -11664,6 +11664,9 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
+// EXTERNAL MODULE: ./node_modules/luxon/build/cjs-browser/luxon.js
+var luxon = __webpack_require__("1315");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.fill.js
 var es6_array_fill = __webpack_require__("6c7b");
 
@@ -11672,9 +11675,6 @@ var es6_string_iterator = __webpack_require__("5df3");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.from.js
 var es6_array_from = __webpack_require__("1c4c");
-
-// EXTERNAL MODULE: ./node_modules/luxon/build/cjs-browser/luxon.js
-var luxon = __webpack_require__("1315");
 
 // CONCATENATED MODULE: ./src/mixins/helpers.js
 
@@ -12041,6 +12041,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 
+
 /* harmony default export */ var DatePickervue_type_script_lang_js_ = ({
   name: 'DatePicker',
   props: {
@@ -12198,17 +12199,29 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
     },
     selectMonth: function selectMonth(month) {
-      this.displayDate = month;
+      var date = luxon["DateTime"].fromObject({
+        year: this.displayDate.year,
+        month: month.month,
+        day: this.displayDate.day
+      });
+      if (date.isValid) this.displayDate = date;else this.displayDate = month;
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
       this.section = 'days';
       this.$emit('change-month', this.displayDate);
+      this.$emit('input', this.displayDate);
     },
     selectYear: function selectYear(year) {
-      this.displayDate = year;
+      var date = luxon["DateTime"].fromObject({
+        year: year.year,
+        month: this.displayDate.month,
+        day: this.displayDate.day
+      });
+      if (date.isValid) this.displayDate = date;else this.displayDate = year;
       this.monthsMatrix = this.generateMonthsMatrix(this.displayDate, this.locale);
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
       this.section = 'days';
       this.$emit('change-year', this.displayDate);
+      this.$emit('input', this.displayDate);
     },
     setPreviousMonth: function setPreviousMonth(previousMonth) {
       this.displayDate = previousMonth;
@@ -12374,8 +12387,8 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_DatePickervue_type_script_lang_js_,
-  DatePickervue_type_template_id_236673dc_render,
-  DatePickervue_type_template_id_236673dc_staticRenderFns,
+  DatePickervue_type_template_id_6b1acdee_render,
+  DatePickervue_type_template_id_6b1acdee_staticRenderFns,
   false,
   null,
   null,

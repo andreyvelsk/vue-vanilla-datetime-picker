@@ -175,6 +175,7 @@
 </template>
 
 <script>
+import { DateTime } from 'luxon';
 import helpers from '../mixins/helpers';
 
 export default {
@@ -331,17 +332,31 @@ export default {
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
     },
     selectMonth(month) {
-      this.displayDate = month;
+      const date = DateTime.fromObject({
+        year: this.displayDate.year,
+        month: month.month,
+        day: this.displayDate.day,
+      });
+      if (date.isValid) this.displayDate = date;
+      else this.displayDate = month;
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
       this.section = 'days';
       this.$emit('change-month', this.displayDate);
+      this.$emit('input', this.displayDate);
     },
     selectYear(year) {
-      this.displayDate = year;
+      const date = DateTime.fromObject({
+        year: year.year,
+        month: this.displayDate.month,
+        day: this.displayDate.day,
+      });
+      if (date.isValid) this.displayDate = date;
+      else this.displayDate = year;
       this.monthsMatrix = this.generateMonthsMatrix(this.displayDate, this.locale);
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
       this.section = 'days';
       this.$emit('change-year', this.displayDate);
+      this.$emit('input', this.displayDate);
     },
     setPreviousMonth(previousMonth) {
       this.displayDate = previousMonth;
