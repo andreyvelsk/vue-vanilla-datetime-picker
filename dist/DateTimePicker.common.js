@@ -11605,8 +11605,8 @@ var directive = {
   instances: instances
 };
 /* harmony default export */ var click_outside = (directive);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5be094d7-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DatePicker.vue?vue&type=template&id=6b1acdee&
-var DatePickervue_type_template_id_6b1acdee_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"date-picker"},[_c('div',{staticClass:"date-picker__header"},[(_vm.section === 'days')?_c('button',{staticClass:"date-picker__prev_month",class:{
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5be094d7-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DatePicker.vue?vue&type=template&id=14b6617e&
+var DatePickervue_type_template_id_14b6617e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"date-picker"},[_c('div',{staticClass:"date-picker__header"},[(_vm.section === 'days')?_c('button',{staticClass:"date-picker__prev_month",class:{
         'date-picker__prev_month--disabled': _vm.previousMonth.disabled,
       },attrs:{"type":"button","disabled":_vm.previousMonth.disabled},on:{"click":function($event){return _vm.setPreviousMonth(_vm.previousMonth.value)}}},[_vm._t("months-prev",[_vm._v("\n        <\n      ")],{"item":_vm.previousMonth})],2):(_vm.section === 'months')?_c('button',{staticClass:"date-picker__prev_year",class:{
         'date-picker__prev_year--disabled': _vm.previousYear.disabled,
@@ -11630,10 +11630,10 @@ var DatePickervue_type_template_id_6b1acdee_render = function () {var _vm=this;v
           'date-picker__year-button--disabled': info.disabled,
           'date-picker__year-button--display': info.yearNumber==_vm.displayYear,
         },attrs:{"type":"button","disabled":info.disabled},on:{"click":function($event){return _vm.selectYear(info.year)}}},[_vm._v("\n        "+_vm._s(info.yearNumber)+"\n      ")])])}),0)])}
-var DatePickervue_type_template_id_6b1acdee_staticRenderFns = []
+var DatePickervue_type_template_id_14b6617e_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/DatePicker.vue?vue&type=template&id=6b1acdee&
+// CONCATENATED MODULE: ./src/components/DatePicker.vue?vue&type=template&id=14b6617e&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.object.get-own-property-descriptors.js
 var es7_object_get_own_property_descriptors = __webpack_require__("8e6e");
@@ -12224,9 +12224,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       this.$emit('input', this.displayDate);
     },
     setPreviousMonth: function setPreviousMonth(previousMonth) {
-      this.displayDate = previousMonth;
+      var date = luxon["DateTime"].fromObject({
+        year: previousMonth.year,
+        month: previousMonth.month,
+        day: this.displayDate.day
+      });
+      if (date.isValid) this.displayDate = date;else this.displayDate = previousMonth;
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
       this.$emit('change-month', this.displayDate);
+      this.$emit('input', this.displayDate);
     },
     setPreviousYear: function setPreviousYear(previousYear) {
       this.displayDate = previousYear;
@@ -12234,9 +12240,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       this.$emit('change-year', this.displayDate);
     },
     setNextMonth: function setNextMonth(nextMonth) {
-      this.displayDate = nextMonth;
+      var date = luxon["DateTime"].fromObject({
+        year: nextMonth.year,
+        month: nextMonth.month,
+        day: this.displayDate.day
+      });
+      if (date.isValid) this.displayDate = date;else this.displayDate = nextMonth;
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
       this.$emit('change-month', this.displayDate);
+      this.$emit('input', this.displayDate);
     },
     setNextYear: function setNextYear(nextYear) {
       this.displayDate = nextYear;
@@ -12387,8 +12399,8 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_DatePickervue_type_script_lang_js_,
-  DatePickervue_type_template_id_6b1acdee_render,
-  DatePickervue_type_template_id_6b1acdee_staticRenderFns,
+  DatePickervue_type_template_id_14b6617e_render,
+  DatePickervue_type_template_id_14b6617e_staticRenderFns,
   false,
   null,
   null,

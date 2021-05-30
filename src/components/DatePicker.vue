@@ -359,9 +359,16 @@ export default {
       this.$emit('input', this.displayDate);
     },
     setPreviousMonth(previousMonth) {
-      this.displayDate = previousMonth;
+      const date = DateTime.fromObject({
+        year: previousMonth.year,
+        month: previousMonth.month,
+        day: this.displayDate.day,
+      });
+      if (date.isValid) this.displayDate = date;
+      else this.displayDate = previousMonth;
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
       this.$emit('change-month', this.displayDate);
+      this.$emit('input', this.displayDate);
     },
     setPreviousYear(previousYear) {
       this.displayDate = previousYear;
@@ -369,9 +376,16 @@ export default {
       this.$emit('change-year', this.displayDate);
     },
     setNextMonth(nextMonth) {
-      this.displayDate = nextMonth;
+      const date = DateTime.fromObject({
+        year: nextMonth.year,
+        month: nextMonth.month,
+        day: this.displayDate.day,
+      });
+      if (date.isValid) this.displayDate = date;
+      else this.displayDate = nextMonth;
       this.dateMatrix = this.generateDateMatrix(this.displayDate, this.startFromSunday);
       this.$emit('change-month', this.displayDate);
+      this.$emit('input', this.displayDate);
     },
     setNextYear(nextYear) {
       this.displayDate = nextYear;
